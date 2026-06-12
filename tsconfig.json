@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    /* =========================================
+       1. ENTORNO BASE (Estándar moderno)
+       ========================================= */
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    /* =========================================
+       2. ESTRUCTURA DE CARPETAS
+       ========================================= */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* =========================================
+       3. REGLAS ESTRICTAS (El escudo antimanchas)
+       ========================================= */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    /* =========================================
+       4. RENDIMIENTO Y COMPATIBILIDAD
+       ========================================= */
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+
+    /* =========================================
+       5. INTERRUPTORES ESPECÍFICOS (Activar según necesidad)
+       ========================================= */
+    // "jsx": "react-jsx",       /* <-- DESCOMENTAR SOLO si usas React (Frontend) */
+    // "sourceMap": true,        /* <-- DESCOMENTAR SOLO si necesitas debuggear código en producción */
+    // "declaration": true,      /* <-- DESCOMENTAR SOLO si estás creando una librería para npm */
+    // "declarationMap": true    /* <-- DESCOMENTAR SOLO si activaste "declaration" */
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
