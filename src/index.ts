@@ -12,6 +12,10 @@ app.use(express.json());
 
 setupSwagger(app);
 
+app.get('/', (req, res) => {
+    res.status(200).send('Servidor operativo');
+});
+
 app.use('/api/', route);
 
 app.listen(PORT, () => {
