@@ -1,13 +1,14 @@
-import { GoogleGenAI } from '@google/genai';
+import OpenAI from 'openai';
 import { HojaDeVida } from '../types/cv.js';
 
-const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY!
+const deepseek = new OpenAI({
+    apiKey: process.env.DEEPSEEK_API_KEY!,
+    baseURL: 'https://api.deepseek.com',
 });
 
 export const generarCV = async (datos: string, vacante: string): Promise<HojaDeVida> => {
     try {
-        
+
         const promptCompleto = `
 Actúa como un Senior IT Recruiter y experto en sistemas ATS (Applicant Tracking Systems) con más de 10 años de experiencia.
 
@@ -36,33 +37,33 @@ OFERTA DE TRABAJO (VACANTE):
 ${vacante}
         `;
 
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: promptCompleto,
-            config: {
-                responseMimeType: "application/json",
-            }
+        const response = await deepseek.chat.completions.create({
+            model: 'deepseek-v4-flash',
+            messages: [
+                { role: 'user', content: promptCompleto }
+            ],
+            response_format: { type: 'json_object' },
         });
 
-        if(!response.text){
+        const textoCrudo = response.choices[0]?.message?.content;
+
+        if (!textoCrudo) {
             throw new Error("No se genero respuesta por parte del servidor");
         }
 
-        const textoCrudo = response.text;
-
         const responseClean = textoCrudo
-        .replace(/```json/g, "")
-        .replace(/```/g, "")
-        .trim()
+            .replace(/```json/g, "")
+            .replace(/```/g, "")
+            .trim()
 
         const responseReady = JSON.parse(responseClean);
         console.log(responseReady);
 
         return responseReady;
-        
+
     } catch (error) {
-        
-        if(error instanceof Error){
+
+        if (error instanceof Error) {
             console.log(error.message);
         }
 
