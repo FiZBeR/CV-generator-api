@@ -2,8 +2,8 @@ import OpenAI from 'openai';
 import { HojaDeVida } from '../types/cv.js';
 
 const deepseek = new OpenAI({
-    apiKey: process.env.DEEPSEEK_API_KEY!,
-    baseURL: 'https://api.deepseek.com',
+    apiKey: process.env.MIMO_API_KEY!,
+    baseURL: 'https://api.xiaomimimo.com/v1',
 });
 
 export const generarCV = async (datos: string, vacante: string): Promise<HojaDeVida> => {
@@ -38,7 +38,7 @@ ${vacante}
         `;
 
         const response = await deepseek.chat.completions.create({
-            model: 'deepseek-v4-flash',
+            model: 'mimo-v2.5-pro',
             messages: [
                 { role: 'user', content: promptCompleto }
             ],
